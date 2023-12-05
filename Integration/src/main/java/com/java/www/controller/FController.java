@@ -36,10 +36,10 @@ public class FController extends HttpServlet {
 			url="review_view_card.jsp";
 			break;
 		
-		case "review/review_view_list.do":
+		case "review/review_view_List.do":
 			service = new Re_viewService();
 			service.execute(request, response);
-			url="review_view_list.jsp";
+			url="review_view_List.jsp";
 			
 			break;
 			

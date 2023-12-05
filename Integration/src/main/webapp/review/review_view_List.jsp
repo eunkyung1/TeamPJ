@@ -590,7 +590,7 @@ left:45%
 	        
 	    
 	    $("#btn-fr-card").click(function(){
-	    	location.href="review_view_card.jsp";
+	    	location.href="review_view_card.do";
 	    });//카드형 클릭
 	        
 	    /* 모달창 */    
@@ -676,19 +676,19 @@ data-feature="" data-location="" data-location-detail="" data-area="" data-area-
 data-ribbon-type="" data-year="" data-evaluate="" data-sort="" data-list-type="" data-is-search-name="false" 
 data-recommended="false" data-principal="" data-bc="false" style="position: relative; height: 600px;" >
 	   
-	
+<!-- 수정  -->	
+<c:forEach var="re_dto" items="${list}">
 <li class="restaurant-thumb-item-list" data-id="29206">
 
     <div class="thumb-restaurant br-list" data-href="/restaurants/29206" style="cursor: pointer">
 
         <header>
             <div class="header-status">
-                <ol class="foodtype">
-                    <li>일식</li>
-                    <li>일식오마카세</li>
-                    <li>모던재패니즈</li>
-                    <li>컨템포러리</li>
-                </ol>
+              	  <ol class="foodtype">
+                <c:forEach var="arr" items="${re_dto.tagarr}">
+                    <li>${arr}</li>
+               </c:forEach> 
+               	 </ol>
             </div>
 
             <div class="header-title">
@@ -705,12 +705,12 @@ data-recommended="false" data-principal="" data-bc="false" style="position: rela
                     <img class="img-star" src="../images/star_yellow.png">
                   </li>
                 </ul>
-				<p>3.0</p>
+				<p>${re_dto.rate}</p>
               </div>
 
               <div class="clearfix">
                     <h3>
-                        고료리켄
+                        ${re_dto.title }
                     </h3>
 
                     <a class="bookmark " href="javascript:showPremiumDialog();" data-toggle="tooltip" data-placement="left" title="" data-original-title="북마크">
@@ -724,10 +724,11 @@ data-recommended="false" data-principal="" data-bc="false" style="position: rela
 
         <div class="thumb-caption-list">
             <div class="info">
-            	<div class="card-writer"><span style="color:#ff7100">삼식세끼</span>의 리뷰입니다.</div>
+            	<div class="card-writer"><span style="color:#ff7100">${re_dto.memberid }</span>의 리뷰입니다.</div>
                 <dl class="dl-horizontal">	
                     <dt>리뷰</dt>
-                    <dd class="card-description"> 김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.
+                    <dd class="card-description"> 
+						${re_dto.bcontent }
                     
                     </dd>
                     
@@ -740,135 +741,9 @@ data-recommended="false" data-principal="" data-bc="false" style="position: rela
         </div>
     </div>
 </li>
+</c:forEach>   
    
-   
-<!-- 1개의 가게 리스트 시작 -->
-<li class="restaurant-thumb-item-list" data-id="29206">
 
-    <div class="thumb-restaurant br-list" data-href="/restaurants/29206" style="cursor: pointer">
-        <header>
-            <div class="header-status">
-                <ol class="foodtype">
-                    <li>일식</li>
-                    <li>일식오마카세</li>
-                    <li>모던재패니즈</li>
-                    <li>컨템포러리</li>
-                </ol>
-            </div>
-
-            <div class="header-title">
-
-              <div class="starfix">
-                <ul class="stars pull-left">
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
-                </ul>
-				<p>3.0</p>
-              </div>
-
-              <div class="clearfix">
-                    <h3>
-                        고료리켄
-                    </h3>
-
-                    <a class="bookmark " href="javascript:showPremiumDialog();" data-toggle="tooltip" data-placement="left" title="" data-original-title="북마크">
-                        <i class="icon-fa-star on"></i>
-                        <i class="icon-fa-star-empty off"></i>
-                    </a>
-                </div>
-            </div>
-
-        </header>
-
-        <div class="thumb-caption-list">
-            <div class="info">
-            	<div class="card-writer"><span style="color:#ff7100">삼식세끼</span>의 리뷰입니다.</div>
-                <dl class="dl-horizontal">	
-                    <dt>리뷰</dt>
-                    <dd class="card-description"> 김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.</dd>
-                    
-                </dl>
-            </div>
-            <div class="evaluate-btn-wrap">
-              <a class="anchor-restaurant-arrow" href="#">더보기+<i class="icon-fa-angle-right"></i></a>
-            </div>
-
-        </div>
-    </div>
-</li>
-<!-- 1개의 가게 리스트 끝 -->
-
-
-
-<!-- 1개의 가게 리스트 시작 -->
-<li class="restaurant-thumb-item-list" data-id="29206">
-
-    <div class="thumb-restaurant br-list" data-href="/restaurants/29206" style="cursor: pointer">
-        <header>
-            <div class="header-status">
-                <ol class="foodtype">
-                    <li>일식</li>
-                    <li>일식오마카세</li>
-                    <li>모던재패니즈</li>
-                    <li>컨템포러리</li>
-                </ol>
-            </div>
-
-            <div class="header-title">
-
-              <div class="starfix">
-                <ul class="stars pull-left">
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
-                </ul>
-				<p>3.0</p>
-              </div>
-
-              <div class="clearfix">
-                    <h3>
-                        고료리켄
-                    </h3>
-
-                    <a class="bookmark " href="javascript:showPremiumDialog();" data-toggle="tooltip" data-placement="left" title="" data-original-title="북마크">
-                        <i class="icon-fa-star on"></i>
-                        <i class="icon-fa-star-empty off"></i>
-                    </a>
-                </div>
-            </div>
-
-        </header>
-
-        <div class="thumb-caption-list">
-            <div class="info">
-            	<div class="card-writer"><span style="color:#ff7100">삼식세끼</span>의 리뷰입니다.</div>
-                <dl class="dl-horizontal">	
-                    <dt>리뷰</dt>
-                    <dd class="card-description"> 김건 셰프가 내는 컨템포러리 재패니즈 퀴진. 신선한 제철 식재료를 사용해 만든 요리를 코스로 낸다. 일식에 프렌치 또는 이탈리안 터치가 가미된 스타일의 오마카세를 맛볼 수 있다.</dd>
-                    
-                </dl>
-            </div>
-            <div class="evaluate-btn-wrap">
-              <a class="anchor-restaurant-arrow" href="#">더보기+<i class="icon-fa-angle-right"></i></a>
-            </div>
-
-        </div>
-    </div>
-</li>
-<!-- 1개의 가게 리스트 끝 -->
 </ul>
 	
 	</div>

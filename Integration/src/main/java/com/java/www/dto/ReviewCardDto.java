@@ -3,14 +3,13 @@ package com.java.www.dto;
 import java.sql.Timestamp;
 
 public class ReviewCardDto {
-	//hit, rate 제외
+	//hit 제외
 	public ReviewCardDto() {};
 	
 	private String filename;
 	private int filesize;
 	private Timestamp regdate;
 	private int boardid;
-	private String memberId;
 	private int storeid;
 	private String title;
 	private String bcontent;
@@ -43,9 +42,9 @@ public class ReviewCardDto {
 	
 	
 	
-	public ReviewCardDto(String filename, int filesize, Timestamp regdate, int boardid, String memberId, int storeid,
+	public ReviewCardDto(String filename, int filesize, Timestamp regdate, int boardid, String memberid, int storeid,
 			String title, String bcontent, Timestamp createdate, String boardcategory, int step, int bindent,
-			int bgroup, int heart, double rate, int reportcount, String tags, String storename, String memberid2, String phone,
+			int bgroup, int heart, double rate, int reportcount, String tags, String storename, String phone,
 			String address, int categoryid, String workingtime, int keywordid, String webaddr, String menu,
 			String menupicture, Timestamp opendate, String storeinfo) {
 		super();
@@ -53,7 +52,7 @@ public class ReviewCardDto {
 		this.filesize = filesize;
 		this.regdate = regdate;
 		this.boardid = boardid;
-		this.memberId = memberId;
+		this.memberid = memberid;
 		this.storeid = storeid;
 		this.title = title;
 		this.bcontent = bcontent;
@@ -67,7 +66,6 @@ public class ReviewCardDto {
 		this.reportcount = reportcount;
 		this.tags = tags;
 		this.storename = storename;
-		memberid = memberid2;
 		this.phone = phone;
 		this.address = address;
 		this.categoryid = categoryid;
@@ -100,10 +98,10 @@ public class ReviewCardDto {
 
 
 
-	public ReviewCardDto(String filename, String memberId, String title, String bcontent, int heart, String tags,
+	public ReviewCardDto(String filename, String memberid, String title, String bcontent, int heart, String tags,
 			String[] tagarr, String storename ) {
 		this.filename = filename;
-		this.memberid = memberId;
+		this.memberid = memberid;
 		this.title = title;
 		this.bcontent = bcontent;
 		this.heart = heart;
@@ -138,12 +136,6 @@ public class ReviewCardDto {
 	}
 	public void setBoardid(int boardid) {
 		this.boardid = boardid;
-	}
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
 	}
 	public int getStoreid() {
 		return storeid;
@@ -288,6 +280,27 @@ public class ReviewCardDto {
 	}
 	public void setStoreinfo(String storeinfo) {
 		this.storeinfo = storeinfo;
+	}
+	public String[] getTagarr() {
+		return tagarr;
+	}
+
+	public void setTagarr(String[] tagarr) {
+		this.tagarr = tagarr;
+	}
+	public Timestamp getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Timestamp regdate) {
+		this.regdate = regdate;
+	}
+
+	public String getMenu() {
+		return menu;
+	}
+	public void setMenu(String menu) {
+		this.menu = menu;
 	}
 	
 	

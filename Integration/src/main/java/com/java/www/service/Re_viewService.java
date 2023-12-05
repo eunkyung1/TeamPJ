@@ -16,6 +16,8 @@ public class Re_viewService implements Service {
 		ReviewBoardDao rbdao = new ReviewBoardDao();
 		
 	ArrayList<ReviewCardDto> list = rbdao.re_listSelect();	
+	System.out.println("Re_viewService tagarr : "+list.get(0).getTagarr());
+	System.out.println("Re_viewService memberid : "+list.get(0).getMemberid());
 	
 	request.setAttribute("list", list);
 	

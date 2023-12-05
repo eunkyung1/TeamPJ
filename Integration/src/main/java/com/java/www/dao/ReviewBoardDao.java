@@ -50,6 +50,7 @@ public class ReviewBoardDao {
 			conn = getConnection();
 			query="with RankedReviews as(select  b.filename, a.tags, a.heart, a.rate, c.storename, a.title, c.memberid, a.bcontent, row_number() over(order by a.rate desc) rnum from review_board a, review_attach b, storeInfo c where a.boardid = b.boardid and a.storeid = c.storeid) select filename,tags,heart,rate,storename,title,memberid,bcontent from RankedReviews where rnum between 1 and 4";
 			pstmt = conn.prepareStatement(query);
+			int i = 0;
 			rs = pstmt.executeQuery();	
 			while(rs.next()) {
 				filename= rs.getString("filename");
@@ -63,8 +64,9 @@ public class ReviewBoardDao {
 				memberId =rs.getString("memberid");
 				bcontent = rs.getString("bcontent");
 				list.add(new ReviewCardDto(filename, memberId , title, bcontent, heart, tags ,tagarr, storename));
-				System.out.println("Dao list filename :"+list.get(0).getFilename());
-				
+				System.out.println("Dao list filename :"+list.get(i).getFilename());
+				System.out.println("Dao list memberid :"+list.get(i).getMemberid());
+				i++;
 			}//while
 			
 		} catch (Exception e) {
