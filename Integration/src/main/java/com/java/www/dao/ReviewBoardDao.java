@@ -63,9 +63,10 @@ public class ReviewBoardDao {
 				title=rs.getString("title");
 				memberId =rs.getString("memberid");
 				bcontent = rs.getString("bcontent");
-				list.add(new ReviewCardDto(filename, memberId , title, bcontent, heart, tags ,tagarr, storename));
+				list.add(new ReviewCardDto(filename, memberId , title, bcontent, heart, rate, tags ,tagarr, storename));
 				System.out.println("Dao list filename :"+list.get(i).getFilename());
 				System.out.println("Dao list memberid :"+list.get(i).getMemberid());
+				System.out.println("Dao list memberid :"+list.get(i).getRate());
 				i++;
 			}//while
 			

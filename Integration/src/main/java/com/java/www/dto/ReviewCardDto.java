@@ -82,7 +82,7 @@ public class ReviewCardDto {
 	
 	
 	
-	public ReviewCardDto(String filename, int boardid, int storeid, String title, String bcontent, int heart,
+	public ReviewCardDto(String filename, int boardid, int storeid, String title, String bcontent, int heart, double rate,
 			String tags, String storename) {
 		super();
 		this.filename = filename;
@@ -91,6 +91,7 @@ public class ReviewCardDto {
 		this.title = title;
 		this.bcontent = bcontent;
 		this.heart = heart;
+		this.rate = rate;
 		this.tags = tags;
 		this.storename = storename;
 	}
@@ -98,13 +99,14 @@ public class ReviewCardDto {
 
 
 
-	public ReviewCardDto(String filename, String memberid, String title, String bcontent, int heart, String tags,
+	public ReviewCardDto(String filename, String memberid, String title, String bcontent, int heart, double rate ,String tags,
 			String[] tagarr, String storename ) {
 		this.filename = filename;
 		this.memberid = memberid;
 		this.title = title;
 		this.bcontent = bcontent;
 		this.heart = heart;
+		this.rate = rate;
 		this.tags = tags;
 		this.tagarr = tagarr;
 		this.storename = storename;
