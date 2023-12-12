@@ -3,7 +3,7 @@ package com.java.www.dto;
 import java.sql.Timestamp;
 
 public class ReviewCardDto {
-	//hit 제외
+	
 	public ReviewCardDto() {};
 	
 	private String filename;
@@ -18,9 +18,11 @@ public class ReviewCardDto {
 	private int step;
 	private int bindent;
 	private int bgroup;
+	private int hit;
 	private int heart;
 	private double rate;
 	private int reportcount;
+	private int ratecounter;
 	private String tags;
 	private String[] tagarr;
 	private String storename;
@@ -99,8 +101,9 @@ public class ReviewCardDto {
 
 
 
-	public ReviewCardDto(String filename, String memberid, String title, String bcontent, int heart, double rate ,String tags,
+	public ReviewCardDto(int boardid, String filename, String memberid, String title, String bcontent, int heart, double rate ,String tags,
 			String[] tagarr, String storename ) {
+		this.boardid = boardid;
 		this.filename = filename;
 		this.memberid = memberid;
 		this.title = title;
@@ -110,6 +113,49 @@ public class ReviewCardDto {
 		this.tags = tags;
 		this.tagarr = tagarr;
 		this.storename = storename;
+	}
+
+
+
+
+	public ReviewCardDto(int boardid ,String filename, String memberid, String title, String bcontent,
+			Timestamp createdate, int heart,
+			double rate, String tags, String[] tagarr, String storename) {
+		this.boardid = boardid;
+		this.filename = filename;
+		this.memberid = memberid;
+		this.title = title;
+		this.bcontent = bcontent;
+		this.createdate = createdate;
+		this.heart = heart;
+		this.rate = rate;
+		this.tags = tags;
+		this.tagarr = tagarr;
+		this.storename=storename;
+		
+	}
+
+
+
+
+	public ReviewCardDto(String storename,int storeid, String title, double rate, String bcontent, String tags,
+			String filename) {
+		this.storename = storename;
+		this.storeid = storeid;
+		this.title = title;
+		this.rate = rate;
+		this.bcontent = bcontent;
+		this.tags = tags;
+		this.filename = filename;
+	}
+
+
+
+
+	public ReviewCardDto(String storename, String address, int storeid) {
+		this.storename = storename;
+		this.address = address;
+		this.storeid = storeid;
 	}
 
 

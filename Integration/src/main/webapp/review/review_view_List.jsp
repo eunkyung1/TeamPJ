@@ -8,7 +8,7 @@
 <head>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>리뷰 | 목록형</title>
 
 <style>
 
@@ -514,14 +514,16 @@ float:left;
     content: '\2661'; 
 }
 
-
+/*수정*/
 /* 플러스버튼  */
 .plusBtn{
 width: 100%;
 height: 44px;
 color: white;
 margin:auto;
+cursor:pointer;
 }
+
 .plusBtn>div{
 width:40px;
 height:40px;
@@ -559,7 +561,7 @@ left:45%
  width:900px;
  height:1000px;
  text-align: center;
- background-color: rgb(255,255,255); /
+ background-color: rgb(255,255,255); 
  border-radius:10px;
  box-shadow:0 2px 3px 0 rgba(34,36,38,0.15);
  transform:translateY(-50%);
@@ -592,11 +594,26 @@ left:45%
 	    $("#btn-fr-card").click(function(){
 	    	location.href="review_view_card.do";
 	    });//카드형 클릭
-	        
-	    /* 모달창 */    
+	    
+	    
+/* 수정 */
+	    /* 모달창 */ //4개 class  
 		$(".thumb-restaurant").click(function(){
+			//alert("모달창 열기");
+			// 데이터 속성을 읽어옴
+		    var modalTitle = $(this).data("title");
+		    // 모달에 title 정보 추가
+		    $(".modal").find(".modal-title").text(modalTitle);
 			
+		    //iframe 주소변경
+		    console.log("해당번호1 : "+$(this).parent().next().find(".modal_body").attr("id"));
+			var number = $(this).parent().next().find(".modal_body").attr("id");
+		    var htmlData = ' <iframe src="./review_view.do?boardid='+number+'" frameborder="0" scrolling="no" width="900px" height="1000px"></iframe>';
+			console.log("url : "+htmlData)
+			$(".modal_body").html(htmlData);
 			$(".modal").css("display","block");	
+		    	
+		    	
 			
 		});
 	    
@@ -641,7 +658,7 @@ left:45%
 	</section>	
 </div>
 
-<div style="height:95vh;" id ="store-search-list-wrap">
+<div id ="store-search-list-wrap">
 <div id="store-sort-wrap">
 <div class="store-sort-btn-wrap">
 	<div class="sort-card">
@@ -670,15 +687,22 @@ left:45%
 <div class="store-result-wrap">
 	
 
+
+<!-- 수정 -->	
+<c:forEach var="re_dto" items="${list}" varStatus = "status">
+<style>
+ .modal_body{
+ backgroud:url('./review/review_view.do?boardid=${re_dto.boardid}');
+ }
+ </style>	
 <ul id="list-restaurant" class="responsive-list-3 type-card" data-mustache-id="tmpl-restaurant" 
 data-tab-mode="single" data-brand-mode="false" data-search-mode="true" data-query="" data-food-type="" data-food-type-detail="" 
 data-feature="" data-location="" data-location-detail="" data-area="" data-area-detail="" data-price-range="" 
 data-ribbon-type="" data-year="" data-evaluate="" data-sort="" data-list-type="" data-is-search-name="false" 
-data-recommended="false" data-principal="" data-bc="false" style="position: relative; height: 600px;" >
+data-recommended="false" data-principal="" data-bc="false" style="position: relative; height: 100%;" >
 	   
-<!-- 수정  -->	
-<c:forEach var="re_dto" items="${list}">
 <li class="restaurant-thumb-item-list" data-id="29206">
+
 
     <div class="thumb-restaurant br-list" data-href="/restaurants/29206" style="cursor: pointer">
 
@@ -695,22 +719,21 @@ data-recommended="false" data-principal="" data-bc="false" style="position: rela
 
               <div class="starfix">
                 <ul class="stars pull-left">
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
-                  <li>
-                    <img class="img-star" src="../images/star_yellow.png">
-                  </li>
+                
+               
+                <c:forEach begin="1" end="${re_dto.rate}">
+	                 <li>
+	                    <img class="img-star" src="../images/star_yellow.png">
+	                 </li>
+                </c:forEach>		
+             
                 </ul>
 				<p>${re_dto.rate}</p>
               </div>
 
               <div class="clearfix">
                     <h3>
-                        ${re_dto.title }
+                        ${re_dto.storename}
                     </h3>
 
                     <a class="bookmark " href="javascript:showPremiumDialog();" data-toggle="tooltip" data-placement="left" title="" data-original-title="북마크">
@@ -724,27 +747,98 @@ data-recommended="false" data-principal="" data-bc="false" style="position: rela
 
         <div class="thumb-caption-list">
             <div class="info">
-            	<div class="card-writer"><span style="color:#ff7100">${re_dto.memberid }</span>의 리뷰입니다.</div>
+            	<div class="card-writer"><span style="color:#ff7100">${re_dto.memberid}</span>의 리뷰입니다.</div>
                 <dl class="dl-horizontal">	
                     <dt>리뷰</dt>
                     <dd class="card-description"> 
 						${re_dto.bcontent }
-                    
                     </dd>
-                    
                 </dl>
             </div>
             <div class="evaluate-btn-wrap">
-              <a class="anchor-restaurant-arrow" href="#">더보기+<i class="icon-fa-angle-right"></i></a>
+               <a class="anchor-restaurant-arrow" href="#">더보기+<i class="icon-fa-angle-right"></i></a>
             </div>
-
         </div>
     </div>
 </li>
-</c:forEach>   
-   
+<!--수정  -->
+<!-- 모달창 시작  -->
+<div class="modal">
+        <div class="modal_body" id="${re_dto.boardid}">
+          
+        </div>
+ </div>
+<!-- 모달창 끝  -->
 
 </ul>
+ </c:forEach>   
+ <script>
+    $(function(){
+        var page = 1;
+    	$(".plusBtn").click(function(){
+    		 page++;
+    	
+    		 $.ajax({
+                 type: "post",
+                 url: "../PlusBtnPage", // 실제로는 서버에서 데이터를 제공하는 엔드포인트로 수정해야 합니다.
+                 data: { "page": page },
+                 dataType: "json",
+                 success: function(data) {
+                	 console.log(data);
+                     for (var i = 0; i < data.length; i++) {
+                         // 각 리뷰를 동적으로 생성
+                         var htmlData = '<li>' +
+                             '<div class="thumb-restaurant br-list">' +
+                             '<header>' +
+                             '<div class="header-status">' +
+                             '<ol class="foodtype">' +
+                             '<li>' + data[i].tags + '</li>' +
+                             '</ol>' +
+                             '</div>' +
+                             '<div class="header-title">' +
+                             '<div class="starfix">' +
+                             '<ul class="stars pull-left">' +
+                             '<li><img class="img-star" src="../images/star_yellow.png"></li>' +
+                             '<li><img class="img-star" src="../images/star_yellow.png"></li>' +
+                             // 여기에 별점 개수만큼 이미지 추가
+                             '</ul>' +
+                             '<p>' + data[i].rate + '</p>' +
+                             '</div>' +
+                             '<div class="clearfix">' +
+                             '<h3>' + data[i].storename + '</h3>' +
+                             '</div>' +
+                             '</div>' +
+                             '</header>' +
+                             '<div class="thumb-caption-list">' +
+                             '<div class="info">' +
+                             '<div class="card-writer">' +
+                             '<span style="color:#ff7100">' + data[i].memberid + '</span>의 리뷰입니다.' +
+                             '</div>' +
+                             '<dl class="dl-horizontal">' +
+                             '<dt>리뷰</dt>' +
+                             '<dd class="card-description">' + data[i].bcontent + '</dd>' +
+                             '</dl>' +
+                             '</div>' +
+                             '<div class="evaluate-btn-wrap">' +
+                             '<a class="anchor-restaurant-arrow" href="#">더보기+<i class="icon-fa-angle-right"></i></a>' +
+                             '</div>' +
+                             '</div>' +
+                             '</div>' +
+                             '</li>';
+
+                         $(".store-result-wrap").append(htmlData);
+                     }//for
+                     page++;
+                 },//success
+                 error: function() {
+                     alert("fail");
+                    
+                 }//error
+    	})//ajax
+  
+    });//click
+    });//jquery  
+</script>
 	
 	</div>
 	<div class="plusBtn">
@@ -752,18 +846,12 @@ data-recommended="false" data-principal="" data-bc="false" style="position: rela
 	</div>
 </div>
 
+
 <div style="padding-top:60px;">
 <iframe src="../html/footer.jsp" frameborder="0" scrolling="no"  style="margin:auto; width:100%; height:300px; padding-top:30px;"></iframe>
 </div>
 		
 
-<!-- 모달창 시작  -->
-<div class="modal">
-        <div class="modal_body">
-           <iframe src="./review_view.jsp"  frameborder='0' scrolling="no" width="900px" height="1000px"></iframe>
-        </div>
- </div>
-<!-- 모달창 끝  -->
 
 </body>
 

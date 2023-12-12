@@ -20,36 +20,14 @@ public class ReviewBoardDto {
 	private int rate;
 	private int reportcount;
 	private String tags;
+	private String[] tagarr;
 	
 	
 	
 	
-	
-	
-	public ReviewBoardDto(int boardid, String memberId, int storeid, String title, String bcontent,
-			String boardcategory, int step, int bindent, int bgroup, int hit, int heart, int rate, int reportcount,
-			String tags) {
-		super();
-		this.boardid = boardid;
-		this.memberId = memberId;
-		this.storeid = storeid;
-		this.title = title;
-		this.bcontent = bcontent;
-		this.boardcategory = boardcategory;
-		this.step = step;
-		this.bindent = bindent;
-		this.bgroup = bgroup;
-		this.hit = hit;
-		this.heart = heart;
-		this.rate = rate;
-		this.reportcount = reportcount;
-		this.tags = tags;
-	}
-
-
 	public ReviewBoardDto(int boardid, String memberId, int storeid, String title, String bcontent,
 			Timestamp createdate, String boardcategory, int step, int bindent, int bgroup, int hit, int heart, int rate,
-			int reportcount, String tags) {
+			int reportcount, String tags, String[] tagarr) {
 		super();
 		this.boardid = boardid;
 		this.memberId = memberId;
@@ -66,6 +44,7 @@ public class ReviewBoardDto {
 		this.rate = rate;
 		this.reportcount = reportcount;
 		this.tags = tags;
+		this.tagarr = tagarr;
 	}
 	
 	
@@ -159,6 +138,19 @@ public class ReviewBoardDto {
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
+	public String[] getTagarr() {
+		return tagarr;
+	}
+	public void setTagarr(String[] tagarr) {
+		this.tagarr = tagarr;
+	}
+	
+	
+	
+	
+
+	
+
 	
 	
 	

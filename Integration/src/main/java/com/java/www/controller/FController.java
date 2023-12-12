@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.java.www.service.Re_viewService;
+import com.java.www.service.N_UpdateService;
+import com.java.www.service.N_WriteServie;
+import com.java.www.service.Re_SelectOneService;
 import com.java.www.service.Service;
 
 @WebServlet("*.do")
@@ -30,6 +33,10 @@ public class FController extends HttpServlet {
 		System.out.println("FController fileName : "+fileName);
 		
 		switch(fileName) {
+		case "html/main.do":
+			response.sendRedirect("main.jsp");
+			break;
+		
 		case "review/review_view_card.do":
 			service = new Re_viewService();
 			service.execute(request, response);
@@ -40,9 +47,34 @@ public class FController extends HttpServlet {
 			service = new Re_viewService();
 			service.execute(request, response);
 			url="review_view_List.jsp";
-			
 			break;
 			
+		case "review/review_view.do":
+			service = new Re_SelectOneService();
+			service.execute(request, response);
+			url="review_view.jsp";
+			break;
+			
+		case "review/review_write.do":
+			response.sendRedirect("review_write.jsp");
+			break;
+			
+		case "review/doN_write.do":
+			service = new N_WriteServie();
+			service.execute(request, response);
+			url="doN_write.jsp";
+			break;
+			
+		case "review/review_update.do":
+			service = new Re_SelectOneService();
+			service.execute(request, response);
+			url="review_update.jsp";
+			break;
+			
+		case "review/doN_update.do":
+			service = new N_UpdateService();
+			service.execute(request, response);
+			url="doN_update.jsp";
 		
 		}//switch
 		

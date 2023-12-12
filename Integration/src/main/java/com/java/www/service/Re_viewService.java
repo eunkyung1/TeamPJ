@@ -18,8 +18,11 @@ public class Re_viewService implements Service {
 	ArrayList<ReviewCardDto> list = rbdao.re_listSelect();	
 	System.out.println("Re_viewService tagarr : "+list.get(0).getTagarr());
 	System.out.println("Re_viewService memberid : "+list.get(0).getMemberid());
+	System.out.println("Re_viewService boardid : "+list.get(0).getBoardid());
 	
 	request.setAttribute("list", list);
+	request.setAttribute("listCount", list.size());
+	System.out.println("Service : "+list.size());
 	
 	
 	

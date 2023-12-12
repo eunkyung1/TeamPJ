@@ -17,15 +17,20 @@
 <script type="text/javascript">
 
 $(function(){
-	
-	
-
 
 	$(".nbtnbig").click(function(){
 		history.go(-1);
 		$('.modal', parent.document).hide();
 		return false;
+	});//취소
+/* 수정 */	
+	$(".sbtnMini").click(function(){
+		alert("글쓰기를 진행합니다.");
+		//var rate = $(":input:radio[name=rate]:checked").val();
+		
+		writeFrm.submit();
 	});
+	
 });
 </script>
 
@@ -54,8 +59,17 @@ $(function(){
 	<div id="container">
 			<!-- contents -->
 			<div id="contents">
-				<form action="#" name="Frm" method="post" enctype="multipart/form-data"></form>
-				<div id="mypage">
+			
+				<!-- 수정 -->
+					<%
+					HttpSession mysession = request.getSession();
+
+					String memberId = "aaa";
+					mysession.setAttribute("session_memberId", memberId);
+					%>
+					
+					<form action="doN_write.do" name="writeFrm" method="post" enctype="multipart/form-data">
+					<div id="mypage">
 					<h2><strong>리뷰 작성</strong><span>우리 삼식세끼 가족들분들의 소중한 의견입니다.</span></h2>
 					<div class="checkDivTab">
 						<table class="checkTable" border="3" cellspacing="0">
@@ -64,25 +78,55 @@ $(function(){
 							<col width="*" />
 							</colgroup>
 							<tbody>
+							<script>
+							$(function(){
+								
+								$("#btn_search").click(function(){
+									var storename = $(".searchtxt").val();
+									$.ajax({
+										url:"../StoreSearch",
+										type:"post",
+										data:{"storename":storename},
+										dataType:"json",
+										success:function(data){
+											htmlData = '';
+											htmlData += data.storename +'||'+data.address;
+											$("#storeList").html(htmlData);
+											
+										},
+										error:function(){
+											alert("실패");
+										}//error
+									})//ajax
+									
+								});//click
+							
+							});
+							
+							</script>
 								<tr>
 									<th scope="row"><span>가게검색</span></th>
 									<td >
-									<input type="text" class="searchtxt" placeholder="검색하세요." />
-									<button class="st_search" name="searchFrm" >가게검색</button>
+									<input type="text" name="storename" id="word "class="searchtxt" placeholder="검색하세요."  />
+									<input type="button" class="st_search" name="searchFrm" value="가게검색" id="btn_search" />
+									<ul id="storeList" style="height:100px">어디에 있을까요?????</ul>
+									
 									</td>
 								</tr>
+								
 								<tr>
 									<th scope="row"><span>제목</span></th>
-									<td >
-										<input type="text" class="wlong" placeholder="제목을 입력하세요." />
+									<td>
+										<input type="text" class="wlong" name="title" placeholder="제목을 입력하세요." />
 									</td>
 								</tr>
 								<tr>
 									<th scope="row"><span>평가</span></th>
 									<td >
+									<!-- 수정  -->
 										<ul class="pta">
 											<li>
-												<input type="radio" name="appraisal" id="starFive" checked="checked"/>
+												<input type="radio" name="rate" id="starFive" checked="checked" value="5.0"/>
 												<label for="starFive" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 													<img src="../images/star_yellow.png" alt="별점" />
@@ -93,7 +137,7 @@ $(function(){
 											</li>
 
 											<li>
-												<input type="radio" name="appraisal" id="starFour" />
+												<input type="radio" name="rate" id="starFour" value="4.0" />
 												<label for="starFour" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 													<img src="../images/star_yellow.png" alt="별점" />
@@ -103,7 +147,7 @@ $(function(){
 											</li>
 
 											<li>
-												<input type="radio" name="appraisal" id="starThree" />
+												<input type="radio" name="rate" id="starThree" value="3.0"/>
 												<label for="starThree" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 													<img src="../images/star_yellow.png" alt="별점" />
@@ -112,7 +156,7 @@ $(function(){
 											</li>
 
 											<li>
-												<input type="radio" name="appraisal" id="startwo" />
+												<input type="radio" name="rate" id="startwo" value="2.0" />
 												<label for="startwo" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 													<img src="../images/star_yellow.png" alt="별점" />
@@ -120,7 +164,7 @@ $(function(){
 											</li>
 
 											<li>
-												<input type="radio" name="appraisal" id="starOne" />
+												<input type="radio" name="rate" id="starOne" value="1.0" />
 												<label for="starOne" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 												</label>
@@ -130,45 +174,58 @@ $(function(){
 								</tr>
 
 								<tr>
-									<th scope="row" ><span>상세 내용</span></th>
+									<th scope="row" ><span>리뷰 내용</span></th>
 									<td >
-									<textarea class="tta" cols="500" rows="10" placeholder="의견을 입력하세요..." style="overflow-y: scroll; overflow-x: hidden; height:250px;" required></textarea>
+									<textarea class="tta" name="bcontent" cols="500" rows="10" placeholder="의견을 입력하세요..." style="overflow-y: scroll; overflow-x: hidden; height:250px;" required></textarea>
 									</td>
 								</tr>
 								<tr class="ktag">
 									<th scope="row" ><span>태그</span></th>
 									<td>
-									<input type="text" class="ttxt"placeholder="태그는 ','로 구분하세요." >
-								</tr>								
+									<input type="text" name="tags" class="ttxt"placeholder="태그는 ','로 구분하세요." >
+								</tr>
+			<!-- 수정 -->
+								<script>
+								function readURL(input) {
+									  if (input.files && input.files[0]) {
+									    var reader = new FileReader();
+									    reader.onload = function(e) {
+									      document.getElementById('preview').src = e.target.result;
+									    };
+									    reader.readAsDataURL(input.files[0]);
+									  } else {
+									    document.getElementById('preview').src = "";
+									  }
+									}
+								
+								</script>								
 								<tr>
 									<th scope="row"><span>파일 첨부</span></th>
 									<td>
-										<input type="file" name="imgfile" class="file_add">
+										<input type="file" name="filename" class="file_add"  onchange="readURL(this)">
 									</td>
-								</tr>								
+								</tr>
 								<tr>
-									<th scope="row" class="imgtag"><span>이미지</span></th>
+									<th scope="row"><span>이미지</span></th>
 									<td>
-										<div class="imgbox">
-											<img style="width:120px; margin:5px; height:150px;" src="../images/1.png">
-											<img style="width:120px; margin:5px; height:150px;" src="../images/1.png">
-											<img style="width:120px; margin:5px; height:150px;" src="../images/1.png">
-										</div>
+										<img id="preview" style="width:50%"/>						
 									</td>
 								</tr>								
+							
 							</tbody>
 						</table>
 					</div>
-
+			<!-- 수정 -->		
 					<!-- Btn Area -->
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>																
-								<li><a href="#" class="nbtnbig">취소</a></li>
-								<li><a href="#" class="sbtnMini">확인</a></li>
+								<li><button type="button" class="sbtnMini"><a>올리기</a></button></li>
+								<li><button type="button" class="nbtnbig"><a>취소</a></button></li>
 							</ul>
 						</div>
 					</div>
+				</div>
 				</form>					
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,10 +32,11 @@ $(document).ready(function() {
 		$('.modal', parent.document).hide();
 
 		return false;
-	});
-
+	});//click
+	
 });
 </script>
+	
 <style>
 
 .img_box{display:flex;  justify-content: space-between;}
@@ -54,7 +56,13 @@ $(document).ready(function() {
 	<div id="container">
 			<!-- contents -->
 			<div id="contents">
-				<form action="#" name="Frm" method="post" enctype="multipart/form-data"></form>
+			
+			
+				<form action="doN_update.do" name="Frm" method="post" enctype="multipart/form-data"></form>
+				<input type="hidden" name="page" value="${page }">
+				<input type="hidden" name="boardid" value="${redto.boardid}">
+				<input type="hidden" name="oldfile value="${redto.filename}">
+				
 				<div id="mypage">
 					<h2><strong>리뷰 수정</strong></h2>
 					<div class="checkDivTab">
@@ -65,16 +73,17 @@ $(document).ready(function() {
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row"><span>가게검색</span></th>
+								<!--css 수정  83줄-->
+									<th scope="row"><span>가게이름</span></th>
 									<td >
-									<input type="text" class="searchtxt" placeholder="검색하세요." />
-									<button class="st_search" name="searchFrm" >가게검색</button>
+									<input type="text" class="searchtxt" name="storename" id="storename" value="${redto.storename}">
 									</td>
 								</tr>
 								<tr>
-									<th scope="row"><span>제목</span></th>
+								<!-- css수정 80줄  -->
+									<th scope="row"><span>리뷰제목</span></th>
 									<td >
-										<input type="text" class="wlong" placeholder="제목을 입력하세요." />
+										<input type="text" class="wlong" name="title" value="${redto.title}"/>
 									</td>
 								</tr>
 								<tr>
@@ -82,7 +91,7 @@ $(document).ready(function() {
 									<td >
 										<ul class="pta">
 											<li>
-												<input type="radio" name="appraisal" id="starFive" checked="checked"/>
+												<input type="radio" name="rate" id="starFive"  value="5.0" <c:if test="${redto.rate == 5}">checked</c:if>/>
 												<label for="starFive" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 													<img src="../images/star_yellow.png" alt="별점" />
@@ -93,7 +102,7 @@ $(document).ready(function() {
 											</li>
 
 											<li>
-												<input type="radio" name="appraisal" id="starFour" />
+												<input type="radio" name="rate" id="starFour" value="4.0" <c:if test="${redto.rate == 4}">checked</c:if>/>
 												<label for="starFour" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 													<img src="../images/star_yellow.png" alt="별점" />
@@ -103,7 +112,7 @@ $(document).ready(function() {
 											</li>
 
 											<li>
-												<input type="radio" name="appraisal" id="starThree" />
+												<input type="radio" name="rate" id="starThree" value="3.0" <c:if test="${redto.rate == 3}">checked</c:if>/>
 												<label for="starThree" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 													<img src="../images/star_yellow.png" alt="별점" />
@@ -112,7 +121,7 @@ $(document).ready(function() {
 											</li>
 
 											<li>
-												<input type="radio" name="appraisal" id="startwo" />
+												<input type="radio" name="rate" id="startwo" value="2.0" <c:if test="${redto.rate == 2}">checked</c:if> />
 												<label for="startwo" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 													<img src="../images/star_yellow.png" alt="별점" />
@@ -120,7 +129,7 @@ $(document).ready(function() {
 											</li>
 
 											<li>
-												<input type="radio" name="appraisal" id="starOne" />
+												<input type="radio" name="rate" id="starOne" value="1.0" <c:if test="${redto.rate == 1}">checked</c:if>/>
 												<label for="starOne" class="star">
 													<img src="../images/star_yellow.png" alt="별점" />
 												</label>
@@ -132,30 +141,42 @@ $(document).ready(function() {
 								<tr>
 									<th scope="row" ><span>상세 내용</span></th>
 									<td >
-									<textarea class="tta" cols="500" rows="10" placeholder="의견을 입력하세요..." style="overflow-y: scroll; overflow-x: hidden; height:250px;" required></textarea>
+									<textarea class="tta" cols="500" rows="10" style="overflow-y: scroll; overflow-x: hidden; height:250px;" >${redto.bcontent}</textarea>
 									</td>
 								</tr>
 								<tr class="ktag">
 									<th scope="row" ><span>태그</span></th>
 									<td>
-									<input type="text" class="ttxt"placeholder="태그는 ','로 구분하세요." >
-								</tr>								
+									<input type="text" name="tags" class="ttxt" value="<c:forEach var='c' items='${redto.tagarr}'><c:out value='${c}'/><c:if test='${not loop.last}'>, </c:if></c:forEach>">
+									</td>
+								</tr>
+						<!-- 수정 -->							
+								<script>
+								function readURL(input) {
+									  if (input.files && input.files[0]) {
+									    var reader = new FileReader();
+									    reader.onload = function(e) {
+									      document.getElementById('preview').src = e.target.result;
+									    };
+									    reader.readAsDataURL(input.files[0]);
+									  } else {
+									    document.getElementById('preview').src = "";
+									  }
+									}
+								
+								</script>								
 								<tr>
 									<th scope="row"><span>파일 첨부</span></th>
 									<td>
-										<input type="file" name="imgfile" class="file_add">
+										<input type="file" name="filename" class="file_add"  onchange="readURL(this)">
 									</td>
-								</tr>								
+								</tr>
 								<tr>
-									<th scope="row" class="imgtag"><span>이미지</span></th>
+									<th scope="row"><span>이미지</span></th>
 									<td>
-										<div class="imgbox">
-											<img style="width:120px; margin:5px; height:150px;" src="../images/1.png">
-											<img style="width:120px; margin:5px; height:150px;" src="../images/1.png">
-											<img style="width:120px; margin:5px; height:150px;" src="../images/1.png">
-										</div>
+										<img id="preview" style="width:50%"/>						
 									</td>
-								</tr>								
+								</tr>										
 							</tbody>
 						</table>
 					</div>
@@ -164,7 +185,7 @@ $(document).ready(function() {
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>																
-								<li><a href="#" class="nbtnbig">취소</a></li>
+								<li><a href="#" class="nbtnbig">수정완료</a></li>
 								<li><a href="#" class="sbtnMini">확인</a></li>
 							</ul>
 						</div>

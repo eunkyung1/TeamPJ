@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,13 +32,14 @@ $(document).ready(function() {
 		$('.modal', parent.document).hide();
 		return false;
 	});
-
+/* 수정 */
 	$(".sbtnMini.update").click(function closeThis(){
 		
-		location.replace("review_update.jsp"); 
+		location.replace("review_update.do?boardid=${redto.boardid}"); 
 	});
 	
-});
+	
+});//
 </script>
 <style>
 
@@ -56,11 +58,13 @@ $(document).ready(function() {
 
 	<!-- container -->
 	<div id="container">
+			
 			<!-- contents -->
 			<div id="contents">
-				<form action="#" name="Frm" method="post" enctype="multipart/form-data"></form>
+			
+				
 				<div id="mypage">
-					<h2><strong style="color:#ff7100">내가 작성한 리뷰</strong></h2>
+					<h2><strong style="color:#ff7100">${redto.storename} 리뷰</strong></h2>
 					<div class="checkDivTab">
 						<table class="checkTable" border="3" cellspacing="0">
 							<colgroup>
@@ -75,83 +79,87 @@ $(document).ready(function() {
 									<a href="#"><img src="../images/1.png"></a>
 									<a href="#"><span>></span></a>
 								</div>
+				<!--수정  -->
 								<tr>
-									<th scope="row"><span>가게이름</span></th>
-									<td>맛있는집</td>
+									<th scope="row" ><span>가게이름</span></th>
+									<td>${redto.storename}</td>
 								</tr>
 								<tr>
 									<th scope="row"><span>작성자</span></th>
-									<td >닉네임도둑</td>
+									<td>${redto.memberid}</td>
 								</tr>
 								<tr>
-									<th scope="row"><span>제목</span></th>
-									<td>내가 제일 잘나가</td>
+									<th scope="row"><span>리뷰제목</span></th>
+									<td>${redto.title}</td>
 								</tr>
-								<tr>
-									<th scope="row"><span>평점</span></th>
-									<td >
-										<ul class="pta">
-											<li>
-							                    <img class="img-star" src="../images/star_yellow.png">
-							                  </li>
-							                  <li>
-							                    <img class="img-star" src="../images/star_yellow.png">
-							                  </li>
-							                  <li>
-							                    <img class="img-star" src="../images/star_yellow.png">
-							                  </li>
-							                  <li>
-							                    <img class="img-star" src="../images/star_yellow.png">
-							                  </li>
-							                  <li>
-							                    <img class="img-star" src="../images/star_yellow.png">
-							                  </li>
-											</li>
-										</ul>
-										<p>5.0</p>
-										
-									</td>
-								</tr>
+									<tr>
+										<th scope="row"><span>평점</span></th>
+										<td>
+											<ul class="pta">
+												<c:forEach begin="1" end="${redto.rate}">
+													<li><img class="img-star"
+														src="../images/star_yellow.png"></li>
+												</c:forEach>
+											</ul>
+											<p>${redto.rate}</p>
 
-								<tr>
+										</td>
+									</tr>
+
+									<tr>
 									<th scope="row" ><span>리뷰내용</span></th>
 									<td >
-									<textarea class="tta" cols="500" rows="10" placeholder="의견을 입력하세요..." style="overflow-y: scroll; overflow-x: hidden; height:250px;" required>
-									
+									<textarea class="tta" cols="500" rows="10" style="overflow-y: scroll; overflow-x: hidden; height:250px;" readonly required>
+									${redto.bcontent}
 									</textarea>
 									</td>
+									
 								</tr>
 								<tr class="ktag">
 									<th scope="row" ><span>태그</span></th>
 									<td class="kword">
-									<a href="#"><span>맛있다</span></a>
-									<a href="#"><span>맛있는</span></a>
-									<a href="#"><span>맛</span></a>
-									<a href="#"><span>있</span></a>
-									<a href="#"><span>는</span></a>
-									<a href="#"><span>혼자와야해</span></a>
-									<a href="#"><span>커플금지</span></a>
-									<a href="#"><span>혼자놀거야</span></a>
-									<a href="#"><span>돈무브</span></a>
-									<a href="#"><span>나는솔로</span></a>
+								<c:forEach var="c" items="${redto.tagarr}">
+									<a>${c}</a>
+								</c:forEach>
 									</td>
-								</tr>								
-								
+								</tr>	
+	
 							
 							</tbody>
 						</table>
 					</div>
-
+				<!--수정  -->
+<!-- 수정 -->
+					<c:if test="${session_memberId!=null}">
+					<!-- Btn Area -->
+					<div class="btnArea">
+						<div class="bCenter">
+							<ul>												
+								<li><button type="button" class="sbtnMini update"><a>수정</a></button></li>				
+								<li><button type="button" class="sbtnMini delete"><a>삭제</a></button></li>
+								<li><button type="button" class="sbtnMini list"><a>목록</a></button></li>
+												
+							</ul>
+						</div>
+					</div>
+					</c:if>
+					
+					<c:if test="${session_memberId==null}">
 					<!-- Btn Area -->
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>																
-								<li><a href="#" class="sbtnMini update">수정</a></li>
-								<li><a href="#" class="sbtnMini delete">삭제</a></li>
-								<li><a href="#" class="sbtnMini list">목록</a></li>
+								<!-- 수정버튼이 필요해서 임시로 수정버튼을 끌어옴. -->
+								<li><button type="button" class="sbtnMini update"><a>수정</a></button></li>
+								<!--끝  -->
+								<li><button type="button" class="sbtnMini list"><a>목록</a></button></li>
 							</ul>
 						</div>
 					</div>
+					</c:if>
+<!--수정 끝 -->					
+					
+					
 				</form>					
 				</div>
 			</div>
