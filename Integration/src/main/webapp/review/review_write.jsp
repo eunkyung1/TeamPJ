@@ -109,7 +109,7 @@ $(function(){
 									<td >
 									<input type="text" name="storename" id="word "class="searchtxt" placeholder="검색하세요."  />
 									<input type="button" class="st_search" name="searchFrm" value="가게검색" id="btn_search" />
-									<ul id="storeList" style="height:100px">어디에 있을까요?????</ul>
+									<ul id="storeList" style="height:100px"></ul>
 									
 									</td>
 								</tr>

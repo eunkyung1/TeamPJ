@@ -9,7 +9,7 @@
 	<body>
 	<script>
 		alert("게시글이 등록되었습니다.");
-		location.href="../html/main.do";
+		location.href="review/review_view_List.do";
 	</script>
 	
 	</body>

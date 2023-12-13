@@ -61,7 +61,7 @@ $(document).ready(function() {
 				<form action="doN_update.do" name="Frm" method="post" enctype="multipart/form-data"></form>
 				<input type="hidden" name="page" value="${page }">
 				<input type="hidden" name="boardid" value="${redto.boardid}">
-				<input type="hidden" name="oldfile value="${redto.filename}">
+				<input type="hidden" name="oldfile" value="${redto.filename}">
 				
 				<div id="mypage">
 					<h2><strong>리뷰 수정</strong></h2>
@@ -185,8 +185,8 @@ $(document).ready(function() {
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>																
-								<li><a href="#" class="nbtnbig">수정완료</a></li>
-								<li><a href="#" class="sbtnMini">확인</a></li>
+								<li><a class="nbtnbig">수정완료</a></li>
+								<li><a href="review_view_List.do" class="sbtnMini">취소</a></li>
 							</ul>
 						</div>
 					</div>

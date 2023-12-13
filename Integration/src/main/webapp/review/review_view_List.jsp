@@ -800,7 +800,7 @@ data-recommended="false" data-principal="" data-bc="false" style="position: rela
                              '<ul class="stars pull-left">' +
                              '<li><img class="img-star" src="../images/star_yellow.png"></li>' +
                              '<li><img class="img-star" src="../images/star_yellow.png"></li>' +
-                             // 여기에 별점 개수만큼 이미지 추가
+                         
                              '</ul>' +
                              '<p>' + data[i].rate + '</p>' +
                              '</div>' +

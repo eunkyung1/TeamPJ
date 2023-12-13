@@ -62,7 +62,7 @@
             </a>
             <ul class="header-sublist">
               <li class="header-subitem">
-                <a target="_top" class="header-sublink" href="../review/review_view_card.jsp">
+                <a target="_top" class="header-sublink" href="../review/review_view_List.do">
                   <span>유저추천맛집</span>
                 </a>
               </li>

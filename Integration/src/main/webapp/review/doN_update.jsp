@@ -9,7 +9,7 @@
 	<body>
 	<script>
 		alert("수정이 완료되었습니다.");
-		location.href="n_list.do?page=${page}";
+		location.href="review/review_view_List.do";
 	</script>
 	
 	</body>
